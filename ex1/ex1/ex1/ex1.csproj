@@ -27,6 +27,8 @@
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
         </EmbeddedResource>
+        <None Remove="words.txt" />
+        <EmbeddedResource Include="words.txt" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,10 +1,12 @@
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xunit;
 using Verifier =
-    Microsoft.CodeAnalysis.CSharp.Testing.XUnit.CodeFixVerifier<ex1.SampleSyntaxAnalyzer,
+    Microsoft.CodeAnalysis.CSharp.Testing.XUnit.CodeFixVerifier<ex1.NamingSyntacticAnalyzer,
         ex1.SampleCodeFixProvider>;
 
 namespace ex1.Tests;
+
 
 public class SampleCodeFixProviderTests
 {

@@ -22,7 +22,7 @@ public class SampleCodeFixProvider : CodeFixProvider
 
     // Specify the diagnostic IDs of analyzers that are expected to be linked.
     public sealed override ImmutableArray<string> FixableDiagnosticIds { get; } =
-        ImmutableArray.Create(SampleSyntaxAnalyzer.DiagnosticId);
+        ImmutableArray.Create(NamingSyntacticAnalyzer.DiagnosticId);
 
     // If you don't need the 'fix all' behaviour, return null.
     public override FixAllProvider? GetFixAllProvider() => null;
@@ -48,7 +48,7 @@ public class SampleCodeFixProvider : CodeFixProvider
         // Register a code action that will invoke the fix.
         context.RegisterCodeFix(
             CodeAction.Create(
-                title: string.Format(Resources.AB0001CodeFixTitle, SampleSyntaxAnalyzer.CompanyName, CommonName),
+                title: string.Format(Resources.AB0001CodeFixTitle, NamingSyntacticAnalyzer.CompanyName, CommonName),
                 createChangedSolution: c => SanitizeCompanyNameAsync(context.Document, declaration, c),
                 equivalenceKey: nameof(Resources.AB0001CodeFixTitle)),
             diagnostic);
@@ -65,7 +65,7 @@ public class SampleCodeFixProvider : CodeFixProvider
         ClassDeclarationSyntax classDeclarationSyntax, CancellationToken cancellationToken)
     {
         // 'Identifier' means the token of the node. Compute the new name based on the text of the token of the node.
-        var newName = classDeclarationSyntax.Identifier.Text.Replace(SampleSyntaxAnalyzer.CompanyName, CommonName);
+        var newName = classDeclarationSyntax.Identifier.Text.Replace(NamingSyntacticAnalyzer.CompanyName, CommonName);
 
         // To make a refactoring, we need to get compiled code metadata: the Semantic Model.
         var semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);

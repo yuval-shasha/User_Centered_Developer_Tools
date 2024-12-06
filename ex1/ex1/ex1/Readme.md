@@ -8,7 +8,7 @@ A .NET Standard project with implementations of sample analyzers and code fix pr
 **You must build this project to see the results (warnings) in the IDE.**
 
 - [SampleSemanticAnalyzer.cs](SampleSemanticAnalyzer.cs): An analyzer that reports invalid values used for the `speed` parameter of the `SetSpeed` function.
-- [SampleSyntaxAnalyzer.cs](SampleSyntaxAnalyzer.cs): An analyzer that reports the company name used in class definitions.
+- [NamingSyntacticAnalyzer.cs](NamingSyntacticAnalyzer.cs): An analyzer that reports the company name used in class definitions.
 - [SampleCodeFixProvider.cs](SampleCodeFixProvider.cs): A code fix that renames classes with company name in their definition. The fix is linked to [SampleSyntaxAnalyzer.cs](SampleSyntaxAnalyzer.cs).
 
 ### ex1.Sample
