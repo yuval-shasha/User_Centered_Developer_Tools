@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using Xunit;
 using Verifier =
     Microsoft.CodeAnalysis.CSharp.Testing.XUnit.CodeFixVerifier<ex1.NamingSyntacticAnalyzer,
-        ex1.SampleCodeFixProvider>;
+        ex1.NamingCodeFixGenerator>;
 
 namespace ex1.Tests;
 
 
-public class SampleCodeFixProviderTests
+public class NamingCodeFixGeneratorTests
 {
     [Fact]
     public async Task ClassWithMyCompanyTitle_ReplaceWithCommonKeyword()

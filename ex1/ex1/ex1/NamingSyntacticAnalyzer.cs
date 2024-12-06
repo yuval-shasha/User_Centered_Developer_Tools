@@ -61,7 +61,6 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
         context.RegisterSyntaxNodeAction(ValidateClassDeclaration, SyntaxKind.ClassDeclaration);
         context.RegisterSyntaxNodeAction(ValidateMethodDeclaration, SyntaxKind.MethodDeclaration);
         context.RegisterSyntaxNodeAction(ValidateLocalVariable, SyntaxKind.LocalDeclarationStatement);
-        context.RegisterSyntaxNodeAction(ValidateGlobalConstant, SyntaxKind.GlobalStatement);
         context.RegisterSyntaxNodeAction(ValidatePublicConstant, SyntaxKind.FieldDeclaration);
     }
 
@@ -104,13 +103,6 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
         }
     }
     
-    
-    
-    private void ValidateGlobalConstant(SyntaxNodeAnalysisContext context)
-    {
-        
-    }
-
     private void ValidatePublicConstant(SyntaxNodeAnalysisContext context)
     {
         if (context.Node is not FieldDeclarationSyntax fieldDeclarationNode)

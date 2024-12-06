@@ -30,4 +30,7 @@
     <data name="ConventionErrorMessageFormat" xml:space="preserve">
         <value>Identifier name '{0}' does not conform to the policy</value>
     </data>
+    <data name="CodeFixActionDescription" xml:space="preserve">
+        <value>Fix invalid indentifier '{0}', replace with '{1}'</value>
+    </data>
 </root>

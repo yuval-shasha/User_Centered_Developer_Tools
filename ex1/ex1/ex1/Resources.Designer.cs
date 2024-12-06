@@ -69,6 +69,15 @@ namespace ex1 {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fix invalid indentifier &apos;{0}&apos;, replace with &apos;{1}&apos;.
+        /// </summary>
+        internal static string CodeFixActionDescription {
+            get {
+                return ResourceManager.GetString("CodeFixActionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Identifier names, should be named according to the policy.
         /// </summary>
         internal static string ConventionErrorDescription {
