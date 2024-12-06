@@ -69,60 +69,6 @@ namespace ex1 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type names should not contain the company name..
-        /// </summary>
-        internal static string AB0001Description {
-            get {
-                return ResourceManager.GetString("AB0001Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type name &apos;{0}&apos; contains the company name.
-        /// </summary>
-        internal static string AB0001MessageFormat {
-            get {
-                return ResourceManager.GetString("AB0001MessageFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type name contains the company name.
-        /// </summary>
-        internal static string AB0001Title {
-            get {
-                return ResourceManager.GetString("AB0001Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The speed must be lower than the Speed of Light..
-        /// </summary>
-        internal static string AB0002Description {
-            get {
-                return ResourceManager.GetString("AB0002Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The specified speed &apos;{0}&apos; must be lower than the Speed of Light.
-        /// </summary>
-        internal static string AB0002MessageFormat {
-            get {
-                return ResourceManager.GetString("AB0002MessageFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The impossible speed.
-        /// </summary>
-        internal static string AB0002Title {
-            get {
-                return ResourceManager.GetString("AB0002Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Identifier names, should be named according to the policy.
         /// </summary>
         internal static string ConventionErrorDescription {

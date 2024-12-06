@@ -5,8 +5,12 @@ namespace ex1.Sample;
 
 // If you don't see warnings, build the Analyzers Project.
 
+
 public class Examples
 {
+    public const int name = 5, BB_C_FF = 7;  
+    
+    public static readonly int aa1 = 5, bb1 = 7;  
     private int _ggg;
     
     public class My5CompanyClass // Try to apply quick fix using the IDE.

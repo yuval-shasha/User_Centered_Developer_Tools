@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -22,7 +18,6 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
         InvalidGrammar
     }
     
-    public const string CompanyName = "MyCompany";
     public const string DiagnosticId = "CS236651";
 
     private static class ConventionErrorRule
@@ -46,9 +41,6 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
             DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
     }
     
-
-    
-    
     private static readonly DiagnosticDescriptor DebugRule = new("DiagnosticId", "Debug", "Debug", "Debug",
         DiagnosticSeverity.Warning, isEnabledByDefault: true, description: "Debug.");
 
@@ -65,15 +57,12 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
 
         // You must call this method to enable the Concurrent Execution.
         context.EnableConcurrentExecution();
-
-        // Subscribe to the Syntax Node with the appropriate 'SyntaxKind' (ClassDeclaration) action.
-        // To figure out which Syntax Nodes you should choose, consider installing the Roslyn syntax tree viewer plugin Rossynt: https://plugins.jetbrains.com/plugin/16902-rossynt/
+        
         context.RegisterSyntaxNodeAction(ValidateClassDeclaration, SyntaxKind.ClassDeclaration);
         context.RegisterSyntaxNodeAction(ValidateMethodDeclaration, SyntaxKind.MethodDeclaration);
         context.RegisterSyntaxNodeAction(ValidateLocalVariable, SyntaxKind.LocalDeclarationStatement);
-        context.RegisterSyntaxNodeAction(ValidateGlobalVariable, SyntaxKind.GlobalStatement);
-
-        // Check other 'context.Register...' methods that might be helpful for your purposes.
+        context.RegisterSyntaxNodeAction(ValidateGlobalConstant, SyntaxKind.GlobalStatement);
+        context.RegisterSyntaxNodeAction(ValidatePublicConstant, SyntaxKind.FieldDeclaration);
     }
 
     private void ValidateMethodDeclaration(SyntaxNodeAnalysisContext context)
@@ -117,12 +106,41 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
     
     
     
-    private void ValidateGlobalVariable(SyntaxNodeAnalysisContext context)
+    private void ValidateGlobalConstant(SyntaxNodeAnalysisContext context)
     {
         
     }
+
+    private void ValidatePublicConstant(SyntaxNodeAnalysisContext context)
+    {
+        if (context.Node is not FieldDeclarationSyntax fieldDeclarationNode)
+            return;
+        
+        bool isConst = fieldDeclarationNode.Modifiers.IndexOf(SyntaxKind.ConstKeyword) != -1;
+        bool isPublic = fieldDeclarationNode.Modifiers.IndexOf(SyntaxKind.PublicKeyword) != -1;
+        bool isReadonly = fieldDeclarationNode.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) != -1;
+        bool isStatic = fieldDeclarationNode.Modifiers.IndexOf(SyntaxKind.StaticKeyword) != -1;
+
+        if (!isPublic || !(isConst || (isStatic && isReadonly)))
+            return;
+        
+        foreach (var variableDeclaration in fieldDeclarationNode.Declaration.Variables)
+        {
+            var variableIdentifier = variableDeclaration.Identifier;
+            
+            if (CheckSnakeCaseNaming(variableIdentifier.Text) == Status.InvalidSyntax)
+            {
+                var diagnostic = Diagnostic.Create(ConventionErrorRule.Rule,
+                    variableIdentifier.GetLocation(),
+                    variableIdentifier.Text);
+
+                context.ReportDiagnostic(diagnostic);    
+            }
+        }
+        
+        
+    }
     
-   
     private void ValidateClassDeclaration(SyntaxNodeAnalysisContext context)
     {
         if (context.Node is not ClassDeclarationSyntax classDeclarationNode)
@@ -177,6 +195,16 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
         }  
         */
 
+        return Status.Valid;
+    }
+
+    Status CheckSnakeCaseNaming(string identifier)
+    {
+        var pattern = @"^([A-Z]+)(_([A-Z]+))*$";
+        var matches = Regex.Matches(identifier, pattern);
+        if (matches.Count != 1)
+            return Status.InvalidSyntax;
+        
         return Status.Valid;
     }
 }
