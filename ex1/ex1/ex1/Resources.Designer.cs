@@ -60,15 +60,6 @@ namespace ex1 {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace &apos;{0}&apos; with &apos;{1}&apos;.
-        /// </summary>
-        internal static string AB0001CodeFixTitle {
-            get {
-                return ResourceManager.GetString("AB0001CodeFixTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Fix invalid indentifier &apos;{0}&apos;, replace with &apos;{1}&apos;.
         /// </summary>
         internal static string CodeFixActionDescription {

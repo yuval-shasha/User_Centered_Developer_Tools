@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <xsd:element name="root" msdata:IsDataSet="true">
-            
-        </xsd:element>
-    </xsd:schema>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -19,15 +12,15 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="ConventionErrorTitle" xml:space="preserve">
-        <value>Convention Error</value>
-    </data>
-    <data name="ConventionErrorDescription" xml:space="preserve">
-        <value>Identifier names, should be named according to the policy</value>
+        <value>שגיאת קונבנציה</value>
     </data>
     <data name="ConventionErrorMessageFormat" xml:space="preserve">
-        <value>Identifier name '{0}' does not conform to the policy</value>
+        <value>המזהה '{0}' לא עומד בתנאי המדיוניות</value>
+    </data>
+    <data name="ConventionErrorDescription" xml:space="preserve">
+        <value>שמות מזהים צריכים להיקרא לפי המדיניות</value>
     </data>
     <data name="CodeFixActionDescription" xml:space="preserve">
-        <value>Fix invalid indentifier '{0}', replace with '{1}'</value>
+        <value>תיקון מזה לא תקין '{0}', בחלף במזהה '{1}'</value>
     </data>
 </root>

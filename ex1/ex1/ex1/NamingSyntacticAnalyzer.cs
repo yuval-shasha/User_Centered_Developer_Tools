@@ -22,11 +22,9 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
 
     private static class ConventionErrorRule
     {
-        // Feel free to use raw strings if you don't need localization.
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.ConventionErrorTitle),
             Resources.ResourceManager, typeof(Resources));
-
-        // The message that will be displayed to the user.
+        
         private static readonly LocalizableString MessageFormat =
             new LocalizableResourceString(nameof(Resources.ConventionErrorMessageFormat), Resources.ResourceManager,
                 typeof(Resources));
@@ -41,17 +39,13 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
             DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
     }
     
-    private static readonly DiagnosticDescriptor DebugRule = new("DiagnosticId", "Debug", "Debug", "Debug",
-        DiagnosticSeverity.Warning, isEnabledByDefault: true, description: "Debug.");
 
-    // Keep in mind: you have to list your rules here.
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
-        ImmutableArray.Create(DebugRule, ConventionErrorRule.Rule);
+        ImmutableArray.Create(ConventionErrorRule.Rule);
     
     
     public override void Initialize(AnalysisContext context)
     {
-        
         // You must call this method to avoid analyzing generated code.
         context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
 
@@ -63,23 +57,16 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
         context.RegisterSyntaxNodeAction(ValidateLocalVariable, SyntaxKind.LocalDeclarationStatement);
         context.RegisterSyntaxNodeAction(ValidatePublicConstant, SyntaxKind.FieldDeclaration);
     }
-
+    
     private void ValidateMethodDeclaration(SyntaxNodeAnalysisContext context)
     {
         if (context.Node is not MethodDeclarationSyntax methodDeclarationNode)
             return;
         
         var methodIdentifier = methodDeclarationNode.Identifier;
-
-        // Find class symbols whose name contains the company name.
         if (CheckUpperCamelCaseNaming(methodIdentifier.Text) == Status.InvalidSyntax)
-        {
-            var diagnostic = Diagnostic.Create(ConventionErrorRule.Rule,
-                methodIdentifier.GetLocation(),
-                methodIdentifier.Text);
-            
-            context.ReportDiagnostic(diagnostic);
-        }
+            ReportConventionError(context, methodIdentifier);
+        
     }
 
     private void ValidateLocalVariable(SyntaxNodeAnalysisContext context)
@@ -92,14 +79,7 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
         {
             var variableIdentifier = variableDeclaration.Identifier; 
             if (CheckLowerCamelCaseNaming(variableIdentifier.Text) == Status.InvalidSyntax)
-            {
-                var diagnostic = Diagnostic.Create(ConventionErrorRule.Rule,
-                    variableIdentifier.GetLocation(),
-                    variableIdentifier.Text);
-
-                context.ReportDiagnostic(diagnostic);    
-            }
-            
+                ReportConventionError(context, variableIdentifier);
         }
     }
     
@@ -107,11 +87,12 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
     {
         if (context.Node is not FieldDeclarationSyntax fieldDeclarationNode)
             return;
-        
-        bool isConst = fieldDeclarationNode.Modifiers.IndexOf(SyntaxKind.ConstKeyword) != -1;
-        bool isPublic = fieldDeclarationNode.Modifiers.IndexOf(SyntaxKind.PublicKeyword) != -1;
-        bool isReadonly = fieldDeclarationNode.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) != -1;
-        bool isStatic = fieldDeclarationNode.Modifiers.IndexOf(SyntaxKind.StaticKeyword) != -1;
+
+        var fieldModifiers = fieldDeclarationNode.Modifiers; 
+        bool isConst = fieldModifiers.IndexOf(SyntaxKind.ConstKeyword) != -1;
+        bool isPublic = fieldModifiers.IndexOf(SyntaxKind.PublicKeyword) != -1;
+        bool isReadonly = fieldModifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) != -1;
+        bool isStatic = fieldModifiers.IndexOf(SyntaxKind.StaticKeyword) != -1;
 
         if (!isPublic || !(isConst || (isStatic && isReadonly)))
             return;
@@ -121,13 +102,7 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
             var variableIdentifier = variableDeclaration.Identifier;
             
             if (CheckSnakeCaseNaming(variableIdentifier.Text) == Status.InvalidSyntax)
-            {
-                var diagnostic = Diagnostic.Create(ConventionErrorRule.Rule,
-                    variableIdentifier.GetLocation(),
-                    variableIdentifier.Text);
-
-                context.ReportDiagnostic(diagnostic);    
-            }
+                ReportConventionError(context, variableIdentifier);
         }
         
         
@@ -142,13 +117,16 @@ public class NamingSyntacticAnalyzer : DiagnosticAnalyzer
 
         // Find class symbols whose name contains the company name.
         if (CheckUpperCamelCaseNaming(classDeclarationIdentifier.Text) == Status.InvalidSyntax)
-        {
-            var diagnostic = Diagnostic.Create(ConventionErrorRule.Rule,
-                classDeclarationIdentifier.GetLocation(),
-                classDeclarationIdentifier.Text);
-            
-            context.ReportDiagnostic(diagnostic);
-        }
+            ReportConventionError(context, classDeclarationIdentifier);
+    }
+    
+    private static void ReportConventionError(SyntaxNodeAnalysisContext context, SyntaxToken methodIdentifier)
+    {
+        var diagnostic = Diagnostic.Create(ConventionErrorRule.Rule,
+            methodIdentifier.GetLocation(),
+            methodIdentifier.Text);
+
+        context.ReportDiagnostic(diagnostic);
     }
 
 

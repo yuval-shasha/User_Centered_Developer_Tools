@@ -17,13 +17,9 @@ namespace ex1;
 [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(NamingCodeFixGenerator)), Shared]
 public class NamingCodeFixGenerator : CodeFixProvider
 {
-    private const string CommonName = "Common";
-
-    // Specify the diagnostic IDs of analyzers that are expected to be linked.
     public sealed override ImmutableArray<string> FixableDiagnosticIds { get; } =
         ImmutableArray.Create(NamingSyntacticAnalyzer.DiagnosticId);
-
-    // If you don't need the 'fix all' behaviour, return null.
+    
     public override FixAllProvider? GetFixAllProvider() => null;
 
     public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -45,7 +41,6 @@ public class NamingCodeFixGenerator : CodeFixProvider
         string newName = "";
         
         
-        // To get the required metadata, we should match the Node to the specific type: 'ClassDeclarationSyntax'.
         if (diagnosticNode is ClassDeclarationSyntax classDeclaration)
         {
             oldName = classDeclaration.Identifier.Text;
@@ -71,9 +66,13 @@ public class NamingCodeFixGenerator : CodeFixProvider
             bool dontStartWithUpperCase = false;
             newName = GetCamelCaseNaming(oldName, dontStartWithUpperCase);
         }
+        else
+        {
+            //got invalid node type, shouldn't happen
+            return;
+        }
 
         
-
         // Register a code action that will invoke the fix.
         context.RegisterCodeFix(
             CodeAction.Create(
@@ -160,11 +159,11 @@ public class NamingCodeFixGenerator : CodeFixProvider
         // To make a refactoring, we need to get compiled code metadata: the Semantic Model.
         var semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
 
-        // Attempt to find the 'TypeSymbol' (compile time metadata of the class) based on highlighted Class Declaration Syntax.
+        // Attempt to find the 'TypeSymbol' (compile time metadata of the symbol) based on highlighted symbol Declaration Syntax.
         var typeSymbol = semanticModel?.GetDeclaredSymbol(node, cancellationToken);
         if (typeSymbol == null) return document.Project.Solution;
 
-        // Produce a new solution that has all references to the class being renamed, including the declaration.
+        // Produce a new solution that has all references to the symbol being renamed, including the declaration.
         var newSolution = await Renamer
             .RenameSymbolAsync(document.Project.Solution, typeSymbol, new SymbolRenameOptions(), newName,
                 cancellationToken)
