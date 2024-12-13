@@ -12,9 +12,12 @@ public class RegTest
     [Fact]
     public void METHOD()
     {
-        string identifier = "RegExp43TestName";
+        string identifier = "geg34RegExp43TestName";
+        identifier = "GEG_REG_EXP_NAME";
         
-        var pattern = @"^([A-Z][a-z]*[0-9]*)+$";
+        var pattern = @"^(([A-Z][a-z]*)[0-9]*)+$";
+        pattern = @"^(([a-z]+)[0-9]*)(([A-Z][a-z]*)[0-9]*)*$";
+        pattern = @"^([A-Z]+)(_([A-Z]+))*$";
         var matches = Regex.Matches(identifier, pattern);
         if (matches.Count != 1)
             Assert.Fail("wrong");

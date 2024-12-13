@@ -20,6 +20,7 @@ camel case, then it must be in a snake case and vise versa. We assumed that beca
 we think that everyone write code with some convention, meaning there is a consistent
 way for naming.
 
+
 ### Which rule category to choose
 We chose that our linter will issue a warning in the naming category,
 because our linter warn about naming conventions.
@@ -31,6 +32,17 @@ the representing instance. Moreover, we think that if the linter will paint
 each instance of the variable with a warning color, it might annoy the user, 
 and the user will quit using our linter. Also, after accepting the correction, all 
 instances of the variable are changed.
+
+### Which message to display on a grammar error or a typo
+We chose to display a general error message for a typo, 
+since we don't know exactly what the user was trying to write.
+
+### which diagnostic identifier to show on a grammar error
+Since the grammar diagnostic is not fixable using our tools, we used a different identifier from 
+the convention error, so that the IDE won't suggest the convention fix on a grammar error.
+We chose the id CS236651_Grammar, to keep the course number convention, but to supply extra information
+about the error type.
+
 
 ### What is considered as local variable
 we considered a local variable as a variable that was declared inside a function body.

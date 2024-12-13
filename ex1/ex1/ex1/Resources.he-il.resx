@@ -23,4 +23,13 @@
     <data name="CodeFixActionDescription" xml:space="preserve">
         <value>תיקון מזה לא תקין '{0}', בחלף במזהה '{1}'</value>
     </data>
+    <data name="GrammarErrorTitle" xml:space="preserve">
+        <value>שגיאת כתיב</value>
+    </data>
+    <data name="GrammarErrorMessageFormat" xml:space="preserve">
+        <value>יש שגיאת כתיב במזהה הנוכחי</value>
+    </data>
+    <data name="GrammarErrorDescription" xml:space="preserve">
+        <value>שמות מזהים צריכים להיות מורכבים ממילים אמיתיות</value>
+    </data>
 </root>

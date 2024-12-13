@@ -94,5 +94,32 @@ namespace ex1 {
                 return ResourceManager.GetString("ConventionErrorTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identifier names, should be constructed of real words.
+        /// </summary>
+        internal static string GrammarErrorDescription {
+            get {
+                return ResourceManager.GetString("GrammarErrorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a typo in the Identifier name.
+        /// </summary>
+        internal static string GrammarErrorMessageFormat {
+            get {
+                return ResourceManager.GetString("GrammarErrorMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Typo.
+        /// </summary>
+        internal static string GrammarErrorTitle {
+            get {
+                return ResourceManager.GetString("GrammarErrorTitle", resourceCulture);
+            }
+        }
     }
 }

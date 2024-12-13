@@ -30,4 +30,13 @@
     <data name="CodeFixActionDescription" xml:space="preserve">
         <value>Fix invalid indentifier '{0}', replace with '{1}'</value>
     </data>
+    <data name="GrammarErrorTitle" xml:space="preserve">
+        <value>Typo</value>
+    </data>
+    <data name="GrammarErrorMessageFormat" xml:space="preserve">
+        <value>There is a typo in the Identifier name</value>
+    </data>
+    <data name="GrammarErrorDescription" xml:space="preserve">
+        <value>Identifier names, should be constructed of real words</value>
+    </data>
 </root>

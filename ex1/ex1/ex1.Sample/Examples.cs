@@ -12,15 +12,16 @@ public class Examples
 
     public static readonly int THIS_IS_FALSE = 5;
     public static readonly int THIS_IS_BAD = 5, bb1 = 7;
-    public static readonly int I_AM_U;
+    public static readonly int I_AM_UA;
+    public static readonly int ASDHKJASD;
     private int _ggg;
     
-    public class My_Class // Try to apply quick fix using the IDE.
+    public class MyCslass // Try to apply quick fix using the IDE.
     {
-        void Foo()
+        void Sdvsdvsd()
         {
             //MyClass m = new MyClass();
-            int lo_cF = 6;
+            int lodddd = 6;
         }
     }
     
