@@ -1,0 +1,35 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ConventionErrorTitle" xml:space="preserve">
+        <value>שגיאת קונבנציה</value>
+    </data>
+    <data name="ConventionErrorMessageFormat" xml:space="preserve">
+        <value>המזהה '{0}' לא עומד בתנאי המדיוניות</value>
+    </data>
+    <data name="ConventionErrorDescription" xml:space="preserve">
+        <value>שמות מזהים צריכים להיקרא לפי המדיניות</value>
+    </data>
+    <data name="CodeFixActionDescription" xml:space="preserve">
+        <value>תיקון מזה לא תקין '{0}', בחלף במזהה '{1}'</value>
+    </data>
+    <data name="GrammarErrorTitle" xml:space="preserve">
+        <value>שגיאת כתיב</value>
+    </data>
+    <data name="GrammarErrorMessageFormat" xml:space="preserve">
+        <value>יש שגיאת כתיב במזהה הנוכחי</value>
+    </data>
+    <data name="GrammarErrorDescription" xml:space="preserve">
+        <value>שמות מזהים צריכים להיות מורכבים ממילים אמיתיות</value>
+    </data>
+</root>
